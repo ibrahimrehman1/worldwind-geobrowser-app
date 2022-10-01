@@ -28,6 +28,7 @@
  * The Globe encapulates the WorldWindow object (wwd) and provides application
  * specific logic for interacting with layers.
  */
+
 export default class Globe {
   /**
    * Constructs a Globe object for the given canvas with an optional projection.

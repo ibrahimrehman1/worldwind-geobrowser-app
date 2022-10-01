@@ -134,7 +134,7 @@ $(document).ready(function () {
   });
   globe.addLayer(new WorldWind.AtmosphereLayer(), {
     category: "setting",
-    enabled: false,
+    enabled: true,
     time: null, // new Date() // activates day/night mode
   });
   globe.addLayer(new WorldWind.ShowTessellationLayer(), {
@@ -177,4 +177,18 @@ $(document).ready(function () {
   $(".collapse .close").on("click", function () {
     $(this).closest(".collapse").collapse("hide");
   });
+
+  document
+    .querySelector("#projections")
+    .addEventListener("click", changeProjection);
+  function changeProjection(e) {
+    let arrayList = Array.from(
+      document.querySelector("#projections").childNodes
+    );
+    arrayList.forEach((ele) => {
+      ele.classList?.remove("active");
+    });
+    e.target.classList.add("active");
+    globe.changeProjection(e.target.innerText);
+  }
 });

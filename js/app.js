@@ -29,7 +29,7 @@ import ToolsViewModel from './ToolsViewModel.js';
 import MarkersViewModel from './MarkersViewModel.js';
 import SearchViewModel from './SearchViewModel.js';
 import SearchPreviewViewModel from './SearchPreviewViewModel.js';
-
+import {process} from "../secret.js"
 /* global $, ko, WorldWind */
 
 $(document).ready(function () {
@@ -38,7 +38,7 @@ $(document).ready(function () {
   // Set your Bing Maps key which is used when requesting Bing Maps resources.
   // Without your own key you will be using a limited WorldWind developer's key.
   // See: https://www.bingmapsportal.com/ to register for your own key and then enter it below:
-  const BING_API_KEY = "";
+  const BING_API_KEY = process.env.BING_API_KEY;
   if (BING_API_KEY) {
     // Initialize WorldWind properties before creating the first WorldWindow
     WorldWind.BingMapsKey = BING_API_KEY;

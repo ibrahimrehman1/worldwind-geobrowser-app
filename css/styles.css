@@ -9,6 +9,10 @@ body {
     background-color: black;
 }
 
+#globe-canvas{
+    background-color: black !important;
+}
+
 .globe-overlay {
     position: absolute;
     top: 3.5rem;

@@ -111,8 +111,11 @@ $(document).ready(function () {
 };
 
 
-// // Listen for mouse clicks.
+ // Listen for mouse clicks.
 var clickRecognizer = new WorldWind.ClickRecognizer(globe.wwd, handleClick);
+
+// Listen for taps on mobile devices.
+var tapRecognizer = new WorldWind.TapRecognizer(globe.wwd, handleClick);
 
 
   // Generate 10000 random points to display on the HeatMap with varying intensity over the area of the whole world.

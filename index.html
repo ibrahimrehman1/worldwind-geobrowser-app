@@ -112,8 +112,37 @@
               >
             </a>
           </li>
-          
         </ul>
+
+        <!-- Projections -->
+        <div class="dropdown mr-4">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Projections
+          </button>
+          <div
+            class="dropdown-menu"
+            aria-labelledby="dropdownMenuButton"
+            id="projections"
+          >
+            <a class="dropdown-item active" href="#">3D</a>
+            <a class="dropdown-item" href="#">Equirectangular</a>
+            <a class="dropdown-item" href="#">Mercator</a>
+            <a class="dropdown-item" href="#">North Polar</a>
+            <a class="dropdown-item" href="#">South Polar</a>
+            <a class="dropdown-item" href="#">North UPS</a>
+            <a class="dropdown-item" href="#">South UPS</a>
+            <a class="dropdown-item" href="#">North Gnomonic</a>
+            <a class="dropdown-item" href="#">South Gnomonic</a>
+          </div>
+        </div>
+
         <!--Search Box-->
         <form id="search" class="form-inline mr-5">
           <input
@@ -132,22 +161,6 @@
             <span class="fas fa-search" aria-hidden="true"></span>
           </button>
         </form>
-        <div class="dropdown" >
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Projections
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="projections">
-            <a class="dropdown-item active" href="#">3D</a>
-            <a class="dropdown-item" href="#">Equirectangular</a>
-            <a class="dropdown-item" href="#">Mercator</a>
-            <a class="dropdown-item" href="#">North Polar</a>
-            <a class="dropdown-item" href="#">South Polar</a>
-            <a class="dropdown-item" href="#">North UPS</a>
-            <a class="dropdown-item" href="#">South UPS</a>
-            <a class="dropdown-item" href="#">North Gnomonic</a>
-            <a class="dropdown-item" href="#">South Gnomonic</a>
-          </div>
-        </div>
       </div>
     </nav>
 
@@ -329,8 +342,6 @@
               </div>
             </div>
           </div>
-
-          
         </div>
 
         <script type="text/html" id="layer-list-template">

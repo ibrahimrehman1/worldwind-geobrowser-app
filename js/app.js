@@ -200,11 +200,13 @@ $(document).ready(function () {
     atmosphereLayer.time = simulatedDate;
     wwd.redraw(); // Update the WorldWindow scene.
 
-    window.requestAnimationFrame(runSimulation);
+    requestAnimationFrame(runSimulation);
   }
 
   // Animate the starry sky as well as the globe's day/night cycle.
-  window.requestAnimationFrame(runSimulation);
+  requestAnimationFrame(runSimulation);
+
+  
 
   // -----------------------------------------------
   // Initialize Knockout view models and html views

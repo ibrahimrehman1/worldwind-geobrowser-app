@@ -75,7 +75,7 @@ $(document).ready(function () {
   });
   globe.addLayer(new WorldWind.BingAerialWithLabelsLayer(), {
     category: "base",
-    enabled: false,
+    enabled: true,
     detailControl: 1.5,
   });
   globe.addLayerFromWms("https://tiles.maps.eox.at/wms", "osm", {
@@ -88,6 +88,32 @@ $(document).ready(function () {
     detailControl: 1.5,
     opacity: 0.8,
   });
+
+  // The common gesture-handling function.
+  var handleClick = function (recognizer) {
+    console.log(recognizer);
+    // Obtain the event location.
+    var x = recognizer.clientX,
+      y = recognizer.clientY;
+
+    // Perform the pick. Must first convert from window coordinates to canvas coordinates, which are
+    // relative to the upper left corner of the canvas rather than the upper left corner of the page.
+    var pickList = globe.wwd.pick(globe.wwd.canvasCoordinates(x, y));
+
+    // If only one thing is picked and it is the terrain, tell the WorldWindow to go to the picked location.
+    if (pickList.objects.length === 1 && pickList.objects[0].isTerrain) {
+      var position = pickList.objects[0].position;
+      globe.wwd.goTo(
+        new WorldWind.Location(position.latitude, position.longitude)
+      );
+    }
+  };
+
+  // Listen for mouse clicks.
+  var clickRecognizer = new WorldWind.ClickRecognizer(globe.wwd, handleClick);
+
+  // Listen for taps on mobile devices.
+  var tapRecognizer = new WorldWind.TapRecognizer(globe.wwd, handleClick);
 
   // Generate 10000 random points to display on the HeatMap with varying intensity over the area of the whole world.
   var locations = [];
@@ -127,12 +153,16 @@ $(document).ready(function () {
     category: "setting",
     enabled: false,
   });
-  globe.addLayer(new WorldWind.StarFieldLayer(), {
+  let starFieldLayer = new WorldWind.StarFieldLayer();
+  globe.addLayer(starFieldLayer, {
     category: "setting",
     enabled: true,
     displayName: "Stars",
   });
-  globe.addLayer(new WorldWind.AtmosphereLayer(), {
+
+  let atmosphereLayer = new WorldWind.AtmosphereLayer();
+
+  globe.addLayer(atmosphereLayer, {
     category: "setting",
     enabled: true,
     time: null, // new Date() // activates day/night mode
@@ -141,6 +171,40 @@ $(document).ready(function () {
     category: "debug",
     enabled: false,
   });
+
+  // Set a date property for the StarField and Atmosphere layers to the current date and time.
+  // This enables the Atmosphere layer to show a night side (and dusk/dawn effects in Earth's terminator).
+  // The StarField layer positions its stars according to this date.
+  var now = new Date();
+  starFieldLayer.time = now;
+  atmosphereLayer.time = now;
+
+  // In this example, each full day/night cycle lasts 8 seconds in real time.
+  var simulatedMillisPerDay = 8000;
+
+  // Begin the simulation at the current time as provided by the browser.
+  var startTimeMillis = Date.now();
+
+  function runSimulation() {
+    // Compute the number of simulated days (or fractions of a day) since the simulation began.
+    var elapsedTimeMillis = Date.now() - startTimeMillis;
+    var simulatedDays = elapsedTimeMillis / simulatedMillisPerDay;
+
+    // Compute a real date in the future given the simulated number of days.
+    var millisPerDay = 24 * 3600 * 1000; // 24 hours/day * 3600 seconds/hour * 1000 milliseconds/second
+    var simulatedMillis = simulatedDays * millisPerDay;
+    var simulatedDate = new Date(startTimeMillis + simulatedMillis);
+
+    // Update the date in both the Starfield and the Atmosphere layers.
+    starFieldLayer.time = simulatedDate;
+    atmosphereLayer.time = simulatedDate;
+    wwd.redraw(); // Update the WorldWindow scene.
+
+    window.requestAnimationFrame(runSimulation);
+  }
+
+  // Animate the starry sky as well as the globe's day/night cycle.
+  window.requestAnimationFrame(runSimulation);
 
   // -----------------------------------------------
   // Initialize Knockout view models and html views

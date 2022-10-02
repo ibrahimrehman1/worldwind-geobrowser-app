@@ -60,6 +60,7 @@ $(document).ready(function () {
   // Create the primary globe
   let globe = new Globe("globe-canvas");
 
+
   // Add layers ordered by drawing order: first to last
   globe.addLayer(new WorldWind.BMNGLayer(), {
     category: "base",
@@ -88,6 +89,31 @@ $(document).ready(function () {
     detailControl: 1.5,
     opacity: 0.8,
   });
+
+
+
+  // The common gesture-handling function.
+  var handleClick = function (recognizer) {
+    console.log(recognizer)
+    // Obtain the event location.
+    var x = recognizer.clientX,
+        y = recognizer.clientY;
+
+    // Perform the pick. Must first convert from window coordinates to canvas coordinates, which are
+    // relative to the upper left corner of the canvas rather than the upper left corner of the page.
+    var pickList = globe.wwd.pick(globe.wwd.canvasCoordinates(x, y));
+
+    // If only one thing is picked and it is the terrain, tell the WorldWindow to go to the picked location.
+    if (pickList.objects.length === 1 && pickList.objects[0].isTerrain) {
+        var position = pickList.objects[0].position;
+        globe.wwd.goTo(new WorldWind.Location(position.latitude, position.longitude));
+    }
+};
+
+
+// // Listen for mouse clicks.
+var clickRecognizer = new WorldWind.ClickRecognizer(globe.wwd, handleClick);
+
 
   // Generate 10000 random points to display on the HeatMap with varying intensity over the area of the whole world.
   var locations = [];

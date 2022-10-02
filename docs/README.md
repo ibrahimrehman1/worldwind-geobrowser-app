@@ -1,6 +1,6 @@
 # Worldwind GeoBrowser Web Application
 
-We have utilized an existing template from the resource (shorturl.at/efmIO), it had very minimal features in the beginning including the control panel at the bottom left of the main page of the web application, the compass and other controls, markers and some layers that are visible at the top left drop-down menu of the page, The search menu allowed to enter a location to be viewed. There were some setting options available as well. The user could also zoom into and zoom out of a location to any extent.
+We have utilized an existing template from the [resource](shorturl.at/efmIO), it had very minimal features in the beginning including the control panel at the bottom left of the main page of the web application, the compass and other controls, markers and some layers that are visible at the top left drop-down menu of the page, The search menu allowed to enter a location to be viewed. There were some setting options available as well. The user could also zoom into and zoom out of a location to any extent.
 
 
 
